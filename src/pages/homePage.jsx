@@ -1,15 +1,9 @@
-import WeatherCard from "../components/weatherCard";
+import Dashboard from "../components/dashboard";
 
 export default function HomePage() {
   return (
     <div className="">
-      <WeatherCard
-        weather={{
-          name: "New York",
-          main: { temp: 22, humidity: 60 },
-          weather: [{ description: "clear sky" }],
-        }}
-      />
+      <Dashboard />
     </div>
   );
 }

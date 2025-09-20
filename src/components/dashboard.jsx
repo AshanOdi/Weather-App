@@ -1,16 +1,19 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import Weather from "./Weather";
+import { data } from "./cities";
+import WeatherCard from "./weatherCard";
+
+const cityCodes = data.List.map((city) => city.CityCode);
+console.log(cityCodes);
 
 export default function Dashboard() {
-  const { isAuthenticated } = useAuth0();
-
   return (
     <div>
-      {isAuthenticated ? (
-        <Weather />
-      ) : (
-        <p className="text-red-500">⚠️ Please log in to view weather data.</p>
-      )}
+      <WeatherCard
+        weather={{
+          name: "New York",
+          main: { temp: 22, humidity: 60 },
+          weather: [{ description: "clear sky" }],
+        }}
+      />
     </div>
   );
 }
