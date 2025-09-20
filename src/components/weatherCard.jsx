@@ -1,12 +1,36 @@
-export default function WeatherCard({ weather }) {
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+export default function WeatherCard({ cityCode }) {
+  const [weather, setWeather] = useState(null);
+  const apiKey = import.meta.env.VITE_REACT_APP_AUTH_OPEN_WEATHER_API;
+
+  useEffect(() => {
+    async function fetchWeatherData() {
+      try {
+        const response = await axios.get(
+          `https://api.openweathermap.org/data/2.5/weather?id=${cityCode}&appid=${apiKey}`
+        );
+        console.log(response.data);
+        setWeather(response.data);
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    }
+
+    fetchWeatherData();
+  }, [cityCode, apiKey]);
+
+  if (!weather) return <div>Loading...</div>;
+
   return (
-    <div className="bg-white p-4 rounded shadow-md w-64">
-      <h2 className="text-xl font-bold mb-2">{weather.name}</h2>
-      <p className="text-gray-700">Temperature: {weather.main.temp}°C</p>
-      <p className="text-gray-700">Humidity: {weather.main.humidity}%</p>
-      <p className="text-gray-700">
-        Condition: {weather.weather[0].description}
-      </p>
+    <div>
+      <h2>{weather.name}</h2>
+      <p>Temperature: {weather.main.temp}°C</p>
+      <p>Humidity: {weather.main.humidity}%</p>
+      <p>Condition: {weather.weather[0].description}</p>
+      <p>Wind: {weather.wind.speed} m/s</p>
+      <p>Cloudiness: {weather.clouds.all}%</p>
     </div>
   );
 }
