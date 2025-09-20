@@ -8,9 +8,9 @@ function App() {
     <BrowserRouter>
       <div>
         <Toaster position="top-right" />
-        <Routes path="/*">
-          <Route path="/" element={<HomePage />} />
+        <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<HomePage />} />
         </Routes>
       </div>
     </BrowserRouter>

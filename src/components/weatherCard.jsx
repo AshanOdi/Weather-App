@@ -27,13 +27,30 @@ export default function WeatherCard({ cityCode }) {
   if (!weather) return <div>Loading...</div>;
 
   return (
-    <div>
-      <h2>{weather.name}</h2>
-      <p>Temperature: {weather.main.temp}°C</p>
-      <p>Humidity: {weather.main.humidity}%</p>
-      <p>Condition: {weather.weather[0].description}</p>
-      <p>Wind: {weather.wind.speed} m/s</p>
-      <p>Cloudiness: {weather.clouds.all}%</p>
+    <div className=" backdrop-blur-xl shadow-2xl shadow-gray-700 max-w-sm md:max-w-md lg:max-w-lg mx-auto p-6 rounded-xl shadow-lg text-center md:text-left">
+      <h2 className="md:text-center text-2xl md:text-3xl font-bold mb-2">
+        {weather.name}
+      </h2>
+      <p className="text-lg md:text-xl mb-1">
+        Temperature:{" "}
+        <span className="font-semibold">{weather.main.temp}°C</span>
+      </p>
+      <p className="text-lg md:text-xl mb-1">
+        Humidity:{" "}
+        <span className="font-semibold">{weather.main.humidity}%</span>
+      </p>
+      <p className="text-lg md:text-xl mb-1">
+        Condition:{" "}
+        <span className="font-semibold capitalize">
+          {weather.weather[0].description}
+        </span>
+      </p>
+      <p className="text-lg md:text-xl mb-1">
+        Wind: <span className="font-semibold">{weather.wind.speed} m/s</span>
+      </p>
+      <p className="text-lg md:text-xl">
+        Cloudiness: <span className="font-semibold">{weather.clouds.all}%</span>
+      </p>
     </div>
   );
 }
