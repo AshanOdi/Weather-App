@@ -5,6 +5,9 @@ export default function WeatherCard({ cityCode }) {
   const [weather, setWeather] = useState(null);
   const apiKey = import.meta.env.VITE_REACT_APP_AUTH_OPEN_WEATHER_API;
 
+  console.log("City Code:", cityCode);
+  console.log("API Key:", apiKey);
+
   useEffect(() => {
     async function fetchWeatherData() {
       try {
