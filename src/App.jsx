@@ -3,6 +3,7 @@ import LoginPage from "./pages/loginPage";
 import HomePage from "./pages/homePage";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./components/protectedRoute";
+import LoginButtonn from "./components/loginButton";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <div>
         <Toaster position="top-right" />
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginButtonn />} />
 
           <Route
             path="/"

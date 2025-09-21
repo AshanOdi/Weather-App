@@ -1,26 +1,30 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import Dashboard from "../components/dashboard";
 
-export default function HomePage() {
-  const { logout, user } = useAuth0();
+export default function LoginPage() {
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
   return (
     <div className="w-full bg-yellow-500 min-h-screen bg-fixed   bg-cover  bg-[url('/back.jpg')]  flex flex-col justify-center items-center">
-      <header className="w-full h-[100px]   max-w-6xl flex flex-row justify-center gap-20 items-center mb-4">
-        <h2 className="text-xl font-semibold">Welcome, {user?.name}</h2>
+      {!isAuthenticated ? (
         <button
-          onClick={() =>
-            logout({ logoutParams: { returnTo: window.location.origin } })
-          }
-          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-red-600"
+          onClick={() => loginWithRedirect()}
         >
-          Log Out
+          Log In
         </button>
-      </header>
-
-      <main className=" bg-green-500flex-1 w-full flex justify-center items-center"></main>
-
-      <Dashboard />
+      ) : (
+        <div>
+          <h2>Welcome, {user.name}</h2>
+          <button
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            onClick={() =>
+              logout({ logoutParams: { returnTo: window.location.origin } })
+            }
+          >
+            Log Out
+          </button>
+        </div>
+      )}
     </div>
   );
 }
