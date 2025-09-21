@@ -8,7 +8,7 @@ import LoginButtonn from "./components/loginButton";
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="w-full bg-yellow-500 min-h-screen bg-fixed   bg-cover  bg-[url('/back.jpg')]  flex flex-col justify-center items-center">
         <Toaster position="top-right" />
         <Routes>
           <Route path="/login" element={<LoginButtonn />} />

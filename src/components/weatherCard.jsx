@@ -30,7 +30,10 @@ export default function WeatherCard({ cityCode }) {
     fetchWeatherData();
   }, [cityCode, apiKey]);
 
-  if (!weather) return <div>Loading...</div>;
+  if (!weather)
+    return (
+      <div className="w-[70px] h-[70px]  border-[5px] border-gray-500 border-t-blue-900 rounded-full animate-spin"></div>
+    );
 
   return (
     <div className=" backdrop-blur-xl shadow-2xl shadow-gray-700 max-w-sm md:max-w-md lg:max-w-lg mx-auto p-6 rounded-xl shadow-lg text-center md:text-left">
