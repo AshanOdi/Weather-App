@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default function WeatherCard({ cityCode }) {
   const [weather, setWeather] = useState(null);
+  const [refreshToggle, setRefreshToggle] = useState(false);
   const apiKey = import.meta.env.VITE_REACT_APP_AUTH_OPEN_WEATHER_API;
 
   //used for testing
@@ -47,7 +48,14 @@ export default function WeatherCard({ cityCode }) {
     }
 
     fetchWeatherData();
-  }, [cityCode, apiKey]);
+
+    const timer = setTimeout(() => {
+      setRefreshToggle((prev) => !prev);
+    }, 300000);
+
+    // cleanup timer when effect re-runs
+    return () => clearTimeout(timer);
+  }, [cityCode, apiKey, refreshToggle]);
 
   if (!weather)
     return (
@@ -55,7 +63,11 @@ export default function WeatherCard({ cityCode }) {
     );
 
   return (
-    <div className=" backdrop-blur-xl shadow-2xl shadow-gray-700 max-w-sm md:max-w-md lg:max-w-lg mx-auto p-6 rounded-xl shadow-lg text-center md:text-left">
+    <div
+      className=" backdrop-blur-xl shadow-2xl shadow-gray-700 max-w-sm md:max-w-md lg:max-w-lg mx-auto p-6 rounded-xl shadow-lg text-center md:text-left
+    transition-transform duration-300 
+              hover:-translate-y-1 hover:shadow-2xl"
+    >
       <h2 className="md:text-center text-2xl md:text-3xl font-bold mb-2">
         {weather.name}
       </h2>
