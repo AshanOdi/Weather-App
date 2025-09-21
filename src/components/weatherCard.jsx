@@ -6,23 +6,41 @@ export default function WeatherCard({ cityCode }) {
   const apiKey = import.meta.env.VITE_REACT_APP_AUTH_OPEN_WEATHER_API;
 
   //used for testing
-  console.log("City Code:", cityCode);
-  console.log("API Key:", apiKey);
+  // console.log("City Code:", cityCode);
+  // console.log("API Key:", apiKey);
 
   useEffect(() => {
     async function fetchWeatherData() {
+      const cacheKey = `weather_${cityCode}`;
+      const cached = localStorage.getItem(cacheKey);
+
+      if (cached) {
+        const { data, timestamp } = JSON.parse(cached);
+        const now = Date.now();
+
+        if (now - timestamp < 300000) {
+          setWeather(data);
+          console.log("Used cached data"); //for testing
+          return;
+        }
+      }
+
       try {
-        //fetch data from open weather api
         const response = await axios.get(
           `https://api.openweathermap.org/data/2.5/weather?id=${cityCode}&appid=${apiKey}`
         );
-        console.log(response.data); //for testing
+        console.log("CAlled data"); //for testing
 
         // Convert temperature from Kelvin to Celsius
         let temp = response.data.main.temp;
         temp = temp - 273.15;
         response.data.main.temp = parseInt(temp);
         setWeather(response.data);
+
+        localStorage.setItem(
+          cacheKey,
+          JSON.stringify({ data: response.data, timestamp: Date.now() })
+        );
       } catch (error) {
         console.error("Error fetching weather data:", error);
       }
