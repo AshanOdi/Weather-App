@@ -1,9 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/loginPage";
 import HomePage from "./pages/homePage";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./components/protectedRoute";
-import LoginButtonn from "./components/loginButton";
+import LoginPage from "./pages/loginPage";
 
 function App() {
   return (
@@ -11,7 +10,7 @@ function App() {
       <div className=" w-full bg-yellow-500 min-h-screen bg-fixed   bg-cover  bg-[url('/back.jpg')]  flex flex-col justify-center items-center">
         <Toaster position="top-right" />
         <Routes>
-          <Route path="/login" element={<LoginButtonn />} />
+          <Route path="/login" element={<LoginPage />} />
 
           <Route
             path="/"
