@@ -5,16 +5,22 @@ export default function WeatherCard({ cityCode }) {
   const [weather, setWeather] = useState(null);
   const apiKey = import.meta.env.VITE_REACT_APP_AUTH_OPEN_WEATHER_API;
 
-  console.log("City Code:", cityCode);
-  console.log("API Key:", apiKey);
+  console.log("City Code:", cityCode); //used for testing
+  console.log("API Key:", apiKey); //used for testing
 
   useEffect(() => {
     async function fetchWeatherData() {
       try {
+        //fetch data from open weather api
         const response = await axios.get(
           `https://api.openweathermap.org/data/2.5/weather?id=${cityCode}&appid=${apiKey}`
         );
-        console.log(response.data);
+        console.log(response.data); //for testing
+
+        // Convert temperature from Kelvin to Celsius
+        let temp = response.data.main.temp;
+        temp = temp - 273.15;
+        response.data.main.temp = parseInt(temp);
         setWeather(response.data);
       } catch (error) {
         console.error("Error fetching weather data:", error);

@@ -3,11 +3,13 @@ import Dashboard from "../components/dashboard";
 
 export default function HomePage() {
   const { logout, user } = useAuth0();
+  console.log(user);
 
   return (
     <div className="w-full bg-yellow-500 min-h-screen bg-fixed   bg-cover  bg-[url('/back.jpg')]  flex flex-col justify-center items-center">
       <header className="w-full h-[100px]   max-w-6xl flex flex-row justify-center gap-20 items-center mb-4">
-        <h2 className="text-xl font-semibold">Welcome, {user?.name}</h2>
+        <h2 className="text-xl font-semibold">Welcome, {user?.nickname}</h2>
+
         <button
           onClick={() =>
             logout({ logoutParams: { returnTo: window.location.origin } })
