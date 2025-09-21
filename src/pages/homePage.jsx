@@ -8,17 +8,10 @@ export default function HomePage() {
 
   return (
     <div>
-      <header className="w-full h-[100px]   max-w-6xl flex flex-row justify-center gap-20 items-center mb-4">
-        <h2 className="text-xl font-semibold">Welcome, {user?.nickname}</h2>
-
-        {/* <button
-          onClick={() =>
-            logout({ logoutParams: { returnTo: window.location.origin } })
-          }
-          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-        >
-          Log Out
-        </button> */}
+      <header className="w-full h-[100px]   max-w-6xl flex flex-row justify-center gap-10 items-center mb-4">
+        <h2 className="text-3xl font-bold text-white drop-shadow-md">
+          Welcome, {user?.nickname}
+        </h2>
         <LogoutButton />
       </header>
 

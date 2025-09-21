@@ -7,10 +7,10 @@ const LogoutButton = () => {
   return (
     // isAuthenticated && (
     <button
-      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      className="px-8 py-3 bg-red-600 text-white font-semibold rounded-full shadow-lg hover:bg-red-700 hover:scale-105 transition-transform duration-300"
       onClick={() => logout()}
     >
-      Sign Outtt
+      Sign Out
     </button>
     // )
   );
