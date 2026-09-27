@@ -7,21 +7,31 @@ import LoginPage from "./pages/loginPage";
 function App() {
   return (
     <BrowserRouter>
-      <div className=" w-full bg-yellow-500 min-h-screen bg-fixed   bg-cover  bg-[url('/back.jpg')]  flex flex-col justify-center items-center">
-        <Toaster position="top-right" />
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: "rgb(15 23 42 / 0.9)",
+            color: "white",
+            border: "1px solid rgb(255 255 255 / 0.15)",
+            backdropFilter: "blur(12px)",
+            borderRadius: "9999px",
+            fontSize: "14px",
+          },
+        }}
+      />
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
 
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <HomePage />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </div>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
     </BrowserRouter>
   );
 }
