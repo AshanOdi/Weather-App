@@ -37,10 +37,12 @@ async function cachedGet(path, params, { ttl = CACHE_TTL, force = false } = {}) 
   return data;
 }
 
-// A location is either { id } (OpenWeather city id) or { lat, lon }
+// A location has coordinates { lat, lon } and/or an OpenWeather city { id }.
+// Coordinates are preferred because they are more precise.
 export function locationParams(location) {
-  if (location.id) return { id: location.id };
-  return { lat: location.lat, lon: location.lon };
+  if (location.lat !== undefined && location.lon !== undefined)
+    return { lat: location.lat, lon: location.lon };
+  return { id: location.id };
 }
 
 export function getCurrentWeather(location, options) {
