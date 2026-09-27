@@ -6,7 +6,9 @@ export default function ProtectedRoute({ children }) {
 
   if (isLoading)
     return (
-      <div className="w-[70px] h-[70px]  border-[5px] border-gray-500 border-t-blue-900 rounded-full animate-spin"></div>
+      <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-sky-500 via-blue-600 to-indigo-800">
+        <div className="h-14 w-14 animate-spin rounded-full border-4 border-white/30 border-t-white" />
+      </div>
     );
   if (!isAuthenticated) return <Navigate to="/login" replace />;
 
