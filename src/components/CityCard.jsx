@@ -83,7 +83,7 @@ export default function CityCard({ location, selected, onSelect, onRemove }) {
         <button
           onClick={onRemove}
           aria-label={`Remove ${weather.name}`}
-          className="absolute -right-1.5 -top-1.5 rounded-full sm:hidden sm:group-hover:block bg-slate-900 p-1 text-xs text-white/80 shadow ring-1 ring-white/20 hover:bg-red-500 group-hover:block"
+          className="absolute -right-1.5 -top-1.5 rounded-full sm:hidden sm:group-hover:block bg-slate-900 p-1 text-xs text-white/80 shadow ring-1 ring-white/20 hover:bg-red-500"
         >
           <FiX />
         </button>
