@@ -10,14 +10,17 @@ const api = axios.create({
 
 // Returns cached response if it is still fresh, otherwise calls the API
 // and stores the result in localStorage with a timestamp.
-async function cachedGet(path, params, ttl = CACHE_TTL) {
+// Pass force = true to skip the cache (manual refresh).
+async function cachedGet(path, params, { ttl = CACHE_TTL, force = false } = {}) {
   const cacheKey = `owm_${path}_${new URLSearchParams(params).toString()}`;
 
-  try {
-    const cached = JSON.parse(localStorage.getItem(cacheKey));
-    if (cached && Date.now() - cached.timestamp < ttl) return cached.data;
-  } catch {
-    // ignore broken cache entries
+  if (!force) {
+    try {
+      const cached = JSON.parse(localStorage.getItem(cacheKey));
+      if (cached && Date.now() - cached.timestamp < ttl) return cached.data;
+    } catch {
+      // ignore broken cache entries
+    }
   }
 
   const { data } = await api.get(path, { params });
@@ -40,25 +43,26 @@ export function locationParams(location) {
   return { lat: location.lat, lon: location.lon };
 }
 
-export function getCurrentWeather(location) {
-  return cachedGet("/data/2.5/weather", {
-    ...locationParams(location),
-    units: "metric",
-  });
+export function getCurrentWeather(location, options) {
+  return cachedGet(
+    "/data/2.5/weather",
+    { ...locationParams(location), units: "metric" },
+    options
+  );
 }
 
-export function getForecast({ lat, lon }) {
-  return cachedGet("/data/2.5/forecast", { lat, lon, units: "metric" });
+export function getForecast({ lat, lon }, options) {
+  return cachedGet("/data/2.5/forecast", { lat, lon, units: "metric" }, options);
 }
 
-export function getAirQuality({ lat, lon }) {
-  return cachedGet("/data/2.5/air_pollution", { lat, lon });
+export function getAirQuality({ lat, lon }, options) {
+  return cachedGet("/data/2.5/air_pollution", { lat, lon }, options);
 }
 
 export function searchCities(query) {
   return cachedGet(
     "/geo/1.0/direct",
     { q: query, limit: 5 },
-    24 * 60 * 60 * 1000 // city names don't change, cache for a day
+    { ttl: 24 * 60 * 60 * 1000 } // city names don't change, cache for a day
   );
 }
