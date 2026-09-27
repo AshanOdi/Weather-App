@@ -69,8 +69,8 @@ export default function HomePage() {
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
         <Header onSelectLocation={selectLocation} />
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[280px_1fr]">
-          <div className="lg:sticky lg:top-6 lg:self-start">
+        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
+          <div className="min-w-0 lg:sticky lg:top-6 lg:self-start">
             <SavedCities
               cities={savedCities}
               selectedId={current?.id}
@@ -97,7 +97,7 @@ export default function HomePage() {
             ) : !current || !forecast ? (
               <DashboardSkeleton />
             ) : (
-              <div className="grid gap-4 xl:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
                 <div className="xl:col-span-2">
                   <CurrentWeather
                     current={current}
@@ -111,7 +111,7 @@ export default function HomePage() {
                 </div>
                 <WeatherTips current={current} hourly={hourly} today={daily[0]} air={air} />
 
-                <div className="xl:col-span-3">
+                <div className="min-w-0 xl:col-span-3">
                   <HourlyForecast hourly={hourly} timezone={current.timezone} />
                 </div>
 
