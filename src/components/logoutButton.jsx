@@ -1,18 +1,20 @@
-import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { FiLogOut } from "react-icons/fi";
 
 const LogoutButton = () => {
-  const { logout, isAuthenticated } = useAuth0();
+  const { logout } = useAuth0();
 
   return (
-    // isAuthenticated && (
     <button
-      className="px-8 py-3 bg-red-600 text-white font-semibold rounded-full shadow-lg hover:bg-red-700 hover:scale-105 transition-transform duration-300"
-      onClick={() => logout()}
+      onClick={() =>
+        logout({ logoutParams: { returnTo: window.location.origin + "/login" } })
+      }
+      title="Sign out"
+      className="flex items-center gap-2 rounded-full px-3 py-2 text-sm text-white/80 transition hover:bg-red-500/80 hover:text-white"
     >
-      Sign Out
+      <FiLogOut />
+      <span className="hidden sm:inline">Sign out</span>
     </button>
-    // )
   );
 };
 
