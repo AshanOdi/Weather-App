@@ -71,9 +71,9 @@ export default function CurrentWeather({
         </div>
       </div>
 
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-6">
+      <div className="mt-6 flex items-center justify-between gap-4">
         <div>
-          <p className="text-7xl font-light tracking-tighter sm:text-8xl">
+          <p className="text-6xl font-light tracking-tighter sm:text-8xl">
             {formatTemp(current.main.temp, units)}
           </p>
           <p className="mt-1 text-lg font-medium capitalize">
@@ -89,7 +89,7 @@ export default function CurrentWeather({
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         >
-          <Icon className="h-32 w-32 drop-shadow-2xl sm:h-40 sm:w-40" />
+          <Icon className="h-24 w-24 drop-shadow-2xl sm:h-40 sm:w-40" />
         </motion.div>
       </div>
 
