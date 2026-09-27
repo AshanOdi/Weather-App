@@ -44,7 +44,7 @@ export default function DailyForecast({ daily, timezone }) {
               </span>
               <div className="relative h-1.5 rounded-full bg-white/15">
                 <div
-                  className="absolute h-full rounded-full bg-gradient-to-r from-sky-300 via-amber-200 to-orange-400"
+                  className="absolute h-full rounded-full bg-linear-to-r from-sky-300 via-amber-200 to-orange-400"
                   style={{ left: `${left}%`, width: `${width}%` }}
                 />
               </div>
