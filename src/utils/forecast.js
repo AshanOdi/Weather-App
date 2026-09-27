@@ -9,6 +9,7 @@ export function getHourly(forecast) {
     description: item.weather[0].description,
     pop: item.pop ?? 0,
     wind: item.wind.speed,
+    precip: (item.rain?.["3h"] ?? 0) + (item.snow?.["3h"] ?? 0),
   }));
 }
 
