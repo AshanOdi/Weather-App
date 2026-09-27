@@ -1,35 +1,70 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { Navigate } from "react-router-dom";
+import { motion } from "motion/react";
+import { FiClock, FiMapPin, FiStar, FiWind } from "react-icons/fi";
+import WeatherBackground from "../components/ui/WeatherBackground";
+
+const FEATURES = [
+  { icon: FiClock, text: "Hourly & 5-day forecasts" },
+  { icon: FiWind, text: "Wind, air quality & sun times" },
+  { icon: FiMapPin, text: "Search any city or use your location" },
+  { icon: FiStar, text: "Save your favourite places" },
+];
 
 export default function LoginPage() {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
+
+  // Already signed in, go straight to the dashboard
+  if (isAuthenticated) return <Navigate to="/" replace />;
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-between bg-[url('/back.jpg')] bg-cover bg-center px-4 py-8">
-      {/* Logo Section */}
-      <div className="flex flex-col items-center text-center mt-6">
-        <img
+    <div className="flex min-h-screen w-full flex-col items-center justify-between px-4 py-8">
+      <WeatherBackground theme="from-sky-400 via-blue-600 to-indigo-900" />
+
+      <div />
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="glass w-full max-w-md rounded-3xl p-8 text-center"
+      >
+        <motion.img
           src="/new1.png"
           alt="App Logo"
-          className="w-32 h-32 sm:w-40 sm:h-40 mb-4 drop-shadow-xl hover:scale-105 transition-transform duration-500"
+          className="mx-auto h-28 w-28 drop-shadow-xl sm:h-32 sm:w-32"
+          animate={{ y: [0, -8, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         />
-        <h1 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-md">
+        <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
           Your Weather, Your Way
         </h1>
-      </div>
+        <p className="mt-2 text-sm text-white/70">
+          Accurate, live weather for every city you care about.
+        </p>
 
-      {/* Centered content */}
-      <div className="flex flex-col items-center justify-center mt-12 sm:mt-20">
+        <ul className="mt-6 grid grid-cols-2 gap-2 text-left text-xs">
+          {FEATURES.map((feature) => {
+            const Icon = feature.icon;
+            return (
+              <li key={feature.text} className="flex items-center gap-2 rounded-xl bg-white/10 p-2.5">
+                <Icon className="shrink-0 text-base" />
+                {feature.text}
+              </li>
+            );
+          })}
+        </ul>
+
         <button
           onClick={() => loginWithRedirect()}
-          className="px-6 sm:px-8 py-2 sm:py-3 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transition-transform duration-300 text-base sm:text-lg"
+          className="mt-8 w-full rounded-full bg-white py-3 font-semibold text-slate-900 shadow-lg transition hover:scale-[1.02] hover:bg-white/90 active:scale-100"
         >
           Log In
         </button>
-      </div>
+      </motion.div>
 
-      {/* Footer text */}
-      <p className="text-white text-xs sm:text-sm opacity-75 mt-6">
-        © 2025 Weather App
+      <p className="mt-6 text-xs text-white/60 sm:text-sm">
+        © {new Date().getFullYear()} Weather App
       </p>
     </div>
   );
