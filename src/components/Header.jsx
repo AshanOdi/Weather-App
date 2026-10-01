@@ -1,11 +1,12 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { FiLogIn } from "react-icons/fi";
 import { useSettings } from "../context/SettingsContext";
+import { useSession } from "../context/SessionContext";
 import LogoutButton from "./logoutButton";
 import SearchBar from "./SearchBar";
 import Brand from "./ui/Brand";
 
 export default function Header({ onSelectLocation }) {
-  const { user } = useAuth0();
+  const { user, isGuest, signIn } = useSession();
   const { units, toggleUnits } = useSettings();
 
   return (
@@ -45,11 +46,23 @@ export default function Header({ onSelectLocation }) {
             />
           )}
           <div className="hidden px-1 leading-tight lg:block">
-            <p className="text-[10px] text-white/60">Welcome back</p>
+            <p className="text-[10px] text-white/60">
+              {isGuest ? "Browsing as" : "Welcome back"}
+            </p>
             <p className="text-sm font-semibold">
-              {user?.given_name || user?.nickname || "Explorer"}
+              {isGuest ? "Guest mode" : user?.given_name || user?.nickname || "Explorer"}
             </p>
           </div>
+          {isGuest && (
+            <button
+              onClick={signIn}
+              title="Sign in with your account"
+              className="flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-semibold text-slate-900 transition hover:bg-white/90"
+            >
+              <FiLogIn />
+              <span className="hidden sm:inline">Sign in</span>
+            </button>
+          )}
           <LogoutButton />
         </div>
       </div>
