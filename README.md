@@ -52,14 +52,6 @@ Public sign-ups are disabled, so only pre-registered users can log in. A test ac
 2. Complete **multi-factor authentication** (MFA). Choose a method and enter the code you receive. Use **Try another method** to switch between the available factors.
 3. You're in. Search for any city or use your current location.
 
----|---|
-| `careers@fidenz.com` | `Pass#fidenz` |
-
-1. Open the live app and click **Log In**.
-2. Enter the email and password above.
-3. Complete **multi-factor authentication** (MFA). Choose a method and enter the code you receive. Use **Try another method** to switch between the available factors.
-4. You're in. Search for any city or use your current location.
-
 ---
 
 ## ✨ Features
