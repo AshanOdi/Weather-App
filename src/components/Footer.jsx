@@ -1,4 +1,5 @@
 import { FiGithub } from "react-icons/fi";
+import Brand, { APP_NAME } from "./ui/Brand";
 
 const LINKS = [
   { label: "Saved cities", href: "#saved-cities" },
@@ -14,11 +15,8 @@ export default function Footer() {
     <footer className="mt-16 border-t border-white/10 pt-10">
       <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
         <div>
-          <a href="#top" className="inline-flex items-center gap-2">
-            <img src="/new1.png" alt="" className="h-9 w-9 drop-shadow-lg" />
-            <span className="text-xl font-bold tracking-tight">
-              Weather<span className="text-sky-300">App</span>
-            </span>
+          <a href="#top" aria-label={`${APP_NAME} – back to top`}>
+            <Brand size="sm" />
           </a>
           <p className="mt-3 max-w-md text-sm text-white/70">
             Live conditions, forecasts and air quality for every city you care about.
@@ -60,7 +58,9 @@ export default function Footer() {
           </a>
           . Updates automatically every 5 minutes.
         </p>
-        <p>© {new Date().getFullYear()} Weather App · Built by Ashan Odithya</p>
+        <p>
+          © {new Date().getFullYear()} <span className="font-sinhala">{APP_NAME}</span> · Built by Ashan Odithya
+        </p>
       </div>
     </footer>
   );
