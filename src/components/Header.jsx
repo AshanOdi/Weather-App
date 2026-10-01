@@ -2,6 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useSettings } from "../context/SettingsContext";
 import LogoutButton from "./logoutButton";
 import SearchBar from "./SearchBar";
+import Brand from "./ui/Brand";
 
 export default function Header({ onSelectLocation }) {
   const { user } = useAuth0();
@@ -9,17 +10,9 @@ export default function Header({ onSelectLocation }) {
 
   return (
     <header className="relative z-20 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <img src="/new1.png" alt="" className="h-10 w-10 drop-shadow-lg" />
-          <div>
-            <p className="text-xs text-white/60">Welcome back</p>
-            <h1 className="text-lg font-semibold leading-tight">
-              {user?.given_name || user?.nickname || "Explorer"}
-            </h1>
-          </div>
-        </div>
-      </div>
+      <h1>
+        <Brand />
+      </h1>
 
       <SearchBar onSelect={onSelectLocation} />
 
@@ -51,6 +44,12 @@ export default function Header({ onSelectLocation }) {
               className="h-8 w-8 rounded-full object-cover"
             />
           )}
+          <div className="hidden px-1 leading-tight lg:block">
+            <p className="text-[10px] text-white/60">Welcome back</p>
+            <p className="text-sm font-semibold">
+              {user?.given_name || user?.nickname || "Explorer"}
+            </p>
+          </div>
           <LogoutButton />
         </div>
       </div>
