@@ -1,8 +1,8 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useSession } from "../context/SessionContext";
 import { Navigate } from "react-router-dom";
 
 export default function ProtectedRoute({ children }) {
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated, isLoading } = useSession();
 
   if (isLoading)
     return (
