@@ -14,7 +14,7 @@ export default function DailyForecast({ daily, timezone }) {
   const span = weekMax - weekMin || 1;
 
   return (
-    <GlassCard title="5-day forecast" icon={FiCalendar} delay={0.15}>
+    <GlassCard id="forecast" title="5-day forecast" icon={FiCalendar} delay={0.15}>
       <ul className="divide-y divide-white/10">
         {daily.map((day, i) => {
           const Icon = getWeatherIcon(day.icon);

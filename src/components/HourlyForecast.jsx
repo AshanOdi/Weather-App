@@ -50,7 +50,7 @@ export default function HourlyForecast({ hourly, timezone }) {
   const active = hovered !== null ? hourly[hovered] : null;
 
   return (
-    <GlassCard title="Next 24 hours" icon={FiClock} delay={0.1}>
+    <GlassCard id="hourly" title="Next 24 hours" icon={FiClock} delay={0.1}>
       <div ref={scrollerRef} className="scrollbar-none overflow-x-auto">
         <div
           className="relative"

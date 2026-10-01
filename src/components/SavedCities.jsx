@@ -4,7 +4,7 @@ import CityCard from "./CityCard";
 // Saved cities: a horizontal strip on mobile, a sidebar list on desktop
 export default function SavedCities({ cities, selectedId, onSelect, onRemove }) {
   return (
-    <aside>
+    <aside id="saved-cities" className="scroll-mt-6">
       <h2 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/60">
         <FiStar /> Saved cities
         <span className="rounded-full bg-white/15 px-2 py-0.5 text-[10px]">

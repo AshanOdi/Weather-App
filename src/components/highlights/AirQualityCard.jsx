@@ -14,7 +14,7 @@ export default function AirQualityCard({ air }) {
 
   if (!reading) {
     return (
-      <GlassCard title="Air quality" icon={MdOutlineAir} delay={0.3}>
+      <GlassCard id="air-quality" title="Air quality" icon={MdOutlineAir} delay={0.3}>
         <p className="text-sm text-white/60">Air quality data unavailable.</p>
       </GlassCard>
     );
@@ -24,7 +24,7 @@ export default function AirQualityCard({ air }) {
   const level = AQI_LEVELS[aqi];
 
   return (
-    <GlassCard title="Air quality" icon={MdOutlineAir} delay={0.3}>
+    <GlassCard id="air-quality" title="Air quality" icon={MdOutlineAir} delay={0.3}>
       <div className="flex items-center gap-2">
         <span className={`h-3 w-3 rounded-full ${level.color}`} />
         <p className="text-2xl font-semibold">{level.label}</p>
