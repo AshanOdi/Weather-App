@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { FiClock, FiMapPin, FiStar, FiWind } from "react-icons/fi";
 import WeatherBackground from "../components/ui/WeatherBackground";
+import { APP_NAME, LOGO_SRC } from "../components/ui/Brand";
 
 const FEATURES = [
   { icon: FiClock, text: "Hourly & 5-day forecasts" },
@@ -30,16 +31,17 @@ export default function LoginPage() {
         className="glass w-full max-w-md rounded-3xl p-8 text-center"
       >
         <motion.img
-          src="/new1.png"
-          alt="App Logo"
-          className="mx-auto h-28 w-28 drop-shadow-xl sm:h-32 sm:w-32"
+          src={LOGO_SRC}
+          alt=""
+          className="mx-auto h-20 w-auto drop-shadow-xl sm:h-24"
           animate={{ y: [0, -8, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         />
-        <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-          Your Weather, Your Way
+        <h1 className="mt-4 font-sinhala text-4xl font-bold sm:text-5xl">
+          {APP_NAME}
         </h1>
-        <p className="mt-2 text-sm text-white/70">
+        <p className="mt-3 text-lg font-semibold">Your Weather, Your Way</p>
+        <p className="mt-1 text-sm text-white/70">
           Accurate, live weather for every city you care about.
         </p>
 
@@ -64,7 +66,7 @@ export default function LoginPage() {
       </motion.div>
 
       <p className="mt-6 text-xs text-white/60 sm:text-sm">
-        © {new Date().getFullYear()} Weather App
+        © {new Date().getFullYear()} <span className="font-sinhala">{APP_NAME}</span>
       </p>
     </div>
   );
