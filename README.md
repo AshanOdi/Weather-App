@@ -36,10 +36,23 @@ _කාලගුණේ (kaalagune) means "the weather" in Sinhala._
 
 **Live app:** https://kaalagune-app.vercel.app/
 
+### Option 1: Guest mode (fastest)
+
+Click **Continue as guest** on the login page. No account needed, and you get the full dashboard. You can switch to a real account any time with **Sign in** in the header.
+
+### Option 2: Log in with Auth0 + MFA
+
 Public sign-ups are disabled, so only pre-registered users can log in. A test account is provided:
 
 | Email | Password |
 |---|---|
+| `careers@fidenz.com` | `Pass#fidenz` |
+
+1. Click **Log In** and enter the email and password above.
+2. Complete **multi-factor authentication** (MFA). Choose a method and enter the code you receive. Use **Try another method** to switch between the available factors.
+3. You're in. Search for any city or use your current location.
+
+---|---|
 | `careers@fidenz.com` | `Pass#fidenz` |
 
 1. Open the live app and click **Log In**.
@@ -76,6 +89,7 @@ Authentication is handled entirely by [Auth0](https://auth0.com/) using the offi
 - **Universal Login + PKCE.** Users log in on Auth0's hosted page, never on ours, so the app never sees a password. The SDK uses the Authorization Code flow with **PKCE**, the recommended flow for single-page apps (you can see `code_challenge` in the login URL).
 - **Multi-factor authentication.** After the password, users must complete a second factor. Configured factors: Email one-time code, Auth0 Guardian push notification, and recovery codes.
 - **Invite-only access.** Public sign-ups are disabled in the Auth0 database connection.
+- **Guest mode.** Visitors can explore the dashboard without an account. A `SessionContext` combines the Auth0 login and the guest flag, so components ask one question ("is someone signed in?") and never talk to Auth0 directly. A real login always replaces guest mode.
 - **Protected routes.** `ProtectedRoute` checks `isAuthenticated` before rendering the dashboard and redirects everyone else to `/login`. A full-screen loader shows while Auth0 restores the session, so the page never flashes the wrong screen.
 - **Sessions that survive a refresh.** `useRefreshTokens` with `cacheLocation="localstorage"` keeps users signed in across reloads using rotating refresh tokens, instead of third-party cookies that modern browsers block.
 - **Clean logout.** Sign out ends the Auth0 session and returns to `/login`. Signed-in users who open `/login` are sent straight to the dashboard.
@@ -178,7 +192,9 @@ src/
 │   ├── protectedRoute.jsx    # Auth guard
 │   ├── highlights/           # Wind, Sun, Air quality, stat tiles
 │   └── ui/                   # Brand, GlassCard, Skeleton, WeatherBackground
-├── context/SettingsContext.jsx  # °C/°F preference
+├── context/
+│   ├── SessionContext.jsx    # Auth0 login + guest mode in one place
+│   └── SettingsContext.jsx   # °C/°F preference
 ├── hooks/                    # useWeather, useLocalStorage
 ├── services/weatherApi.js    # OpenWeather client + cache
 └── utils/                    # time, units, forecast, tips, weatherTheme
@@ -187,7 +203,10 @@ src/
 ```mermaid
 flowchart LR
     U[User] -->|Log In| A[Auth0 Universal Login<br/>password + MFA]
-    A -->|tokens| P[ProtectedRoute]
+    U -->|Continue as guest| G[Guest mode]
+    A -->|tokens| S[SessionContext]
+    G --> S
+    S --> P[ProtectedRoute]
     P --> H[HomePage]
     H --> W[useWeather hook]
     W --> C{localStorage<br/>cache < 5 min?}
@@ -259,7 +278,7 @@ The app is deployed on **Vercel**, connected to this GitHub repo:
 | Framework | React 19, Vite 7 |
 | Styling | Tailwind CSS v4, Motion, React Icons (Feather, Weather Icons) |
 | Routing | React Router 7 |
-| Auth | Auth0 (`@auth0/auth0-react`): Universal Login, PKCE, refresh tokens, MFA |
+| Auth | Auth0 (`@auth0/auth0-react`): Universal Login, PKCE, refresh tokens, MFA, plus guest mode |
 | Data | OpenWeather (current weather, 5 day / 3 hour forecast, air pollution, geocoding), Axios |
 | UX | React Hot Toast, Google Fonts (Inter, Noto Sans Sinhala) |
 | Hosting | Vercel |
