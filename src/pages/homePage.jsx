@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { FiAlertCircle } from "react-icons/fi";
 import { data } from "../assets/cities";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import SavedCities from "../components/SavedCities";
 import CurrentWeather from "../components/CurrentWeather";
 import WeatherTips from "../components/WeatherTips";
@@ -66,7 +67,7 @@ export default function HomePage() {
     <div className="min-h-screen w-full">
       <WeatherBackground theme={getTheme(current)} />
 
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
+      <div id="top" className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:pt-8">
         <Header onSelectLocation={selectLocation} />
 
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
@@ -132,9 +133,7 @@ export default function HomePage() {
           </main>
         </div>
 
-        <footer className="mt-10 text-center text-xs text-white/50">
-          Weather data by OpenWeather · Updates automatically every 5 minutes
-        </footer>
+        <Footer />
       </div>
     </div>
   );
