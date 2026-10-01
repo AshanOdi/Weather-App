@@ -1,7 +1,7 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { FiClock, FiMapPin, FiStar, FiWind } from "react-icons/fi";
+import { useSession } from "../context/SessionContext";
 import WeatherBackground from "../components/ui/WeatherBackground";
 import { APP_NAME, LOGO_SRC } from "../components/ui/Brand";
 
@@ -13,7 +13,7 @@ const FEATURES = [
 ];
 
 export default function LoginPage() {
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { signIn, startGuest, isAuthenticated } = useSession();
 
   // Already signed in, go straight to the dashboard
   if (isAuthenticated) return <Navigate to="/" replace />;
@@ -58,11 +58,21 @@ export default function LoginPage() {
         </ul>
 
         <button
-          onClick={() => loginWithRedirect()}
+          onClick={signIn}
           className="mt-8 w-full rounded-full bg-white py-3 font-semibold text-slate-900 shadow-lg transition hover:scale-[1.02] hover:bg-white/90 active:scale-100"
         >
           Log In
         </button>
+        <button
+          onClick={startGuest}
+          className="mt-3 w-full rounded-full border border-white/30 py-3 font-semibold text-white transition hover:bg-white/10"
+        >
+          Continue as guest
+        </button>
+        <p className="mt-3 text-xs text-white/60">
+          Guests get the full dashboard. Log in uses Auth0 with multi-factor
+          authentication.
+        </p>
       </motion.div>
 
       <p className="mt-6 text-xs text-white/60 sm:text-sm">
